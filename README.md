@@ -1,12 +1,76 @@
 # CovEngineV2
 
-CovEngineV2 is an open source project that aims to optimize your PC for gaming performance.
+A comprehensive system optimization and tweaking tool for Windows 10-11
 
-This project is divided into two main parts:
+## Features
 
-- FE: Frontend based on Python Qt
-- BE: Backend in C/C++
+- Performance optimization tweaks
+- Gaming-specific optimizations
+- Privacy enhancements
+- Security hardening
+- System monitoring
 
-Additional documentation and future tweaks will be added in due course.
+## Build Status
 
-For more details, please refer to the docs folder or even better, @zeequip on discord.
+[![CMake Build](https://github.com/yourusername/CovEngineV2/actions/workflows/cmake.yml/badge.svg)](https://github.com/yourusername/CovEngineV2/actions/workflows/cmake.yml)
+
+## Building from Source
+
+### Prerequisites
+
+- CMake 3.10 or higher
+- C++ compiler with C++11 support
+- Python 3.8 or higher
+- Git
+
+### Clone the Repository
+
+```bash
+git clone https://github.com/yourusername/CovEngineV2.git
+cd CovEngineV2
+```
+
+### Build with CMake
+
+```bash
+# Create a build directory
+mkdir build
+cd build
+
+# Configure the project
+cmake ..
+
+# Build the backend
+cmake --build . --config Release
+
+# Build the complete application (backend + frontend)
+cmake --build . --target build_all --config Release
+```
+
+### Alternative Build Methods
+
+You can also build the application using the provided scripts:
+
+```bash
+# Using the build script (Windows)
+./build.bat
+
+# Or using Python directly
+python build.py
+```
+
+## Installation
+
+After building, the application can be found in the `dist/CovEngineV2` directory.
+
+## Usage
+
+Run the application with administrator privileges:
+
+```
+dist/CovEngineV2/CovEngineV2.exe
+```
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE file for details. 

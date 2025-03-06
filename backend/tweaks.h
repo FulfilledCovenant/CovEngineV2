@@ -3,6 +3,11 @@
 #include <string>
 #include "nlohmann/json.hpp"
 
+#ifdef _WIN32
+#include <windows.h>
+#include <minwindef.h>
+#endif
+
 using json = nlohmann::json;
 
 bool MY(const std::string& key_path, const std::string& value_name, DWORD value_type, const void* data, DWORD data_size);
