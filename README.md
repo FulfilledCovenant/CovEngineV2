@@ -9,4 +9,4 @@ This project is divided into two main parts:
 
 Additional documentation and future tweaks will be added in due course.
 
-For more details, please refer to the docs folder. 
+For more details, please refer to the docs folder or even better, @zeequip on discord.
