@@ -2,6 +2,8 @@
 
 A fully open source system optimization and tweaking tool for Windows 10-11
 
+(Predecessor to CovEngineA)
+
 ## Features
 
 - Performance optimization tweaks
