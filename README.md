@@ -68,3 +68,7 @@ Run the application with administrator privileges:
 ```
 dist/CovEngineV2/CovEngineV2.exe
 ```
+
+## Notes
+
+Workflows is currently flawed.
