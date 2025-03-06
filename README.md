@@ -66,7 +66,3 @@ Run the application with administrator privileges:
 ```
 dist/CovEngineV2/CovEngineV2.exe
 ```
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
