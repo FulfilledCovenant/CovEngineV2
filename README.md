@@ -10,10 +10,6 @@ A comprehensive system optimization and tweaking tool for Windows 10-11
 - Security hardening
 - System monitoring
 
-## Build Status
-
-[![CMake Build](https://github.com/FulfilledCovenant/CovEngineV2/actions/workflows/cmake.yml/badge.svg)](https://github.com/FulfilledCovenant/CovEngineV2/actions/workflows/cmake.yml)
-
 ## Building from Source
 
 ### Prerequisites
