@@ -1,6 +1,6 @@
 # CovEngineV2
 
-A comprehensive system optimization and tweaking tool for Windows 10-11
+A fully open source system optimization and tweaking tool for Windows 10-11
 
 ## Features
 
