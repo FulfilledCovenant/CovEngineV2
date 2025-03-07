@@ -25,6 +25,8 @@ This project is divided into two main parts:
 
 See [BUILD_INSTRUCTIONS.md](./BUILD_INSTRUCTIONS.md) for details on how to build and run the application.
 
+Or, download the latest release thats already built.
+
 ## Documentation
 
 Additional documentation and future tweaks can be found in the [docs](./docs) folder. 
