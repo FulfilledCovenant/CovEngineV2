@@ -5,7 +5,9 @@
 #include <Windows.h>
 #include "nlohmann/json.hpp"
 
+
 using json = nlohmann::json;
+
 
 bool AK_BD(const json& params);
 bool AK_BS(const json& params);
@@ -16,8 +18,10 @@ bool AK_MA(const json& params);
 bool AK_GR(const json& params);
 bool AK_TY(const json& params);
 
+
 bool AK(const std::string& tweak_id, const json& params) {
     std::cout << "Applying tweak: " << tweak_id << std::endl;
+    
     
     if (tweak_id == "configure_bcdedit") {
         return AK_BD(params);
@@ -41,9 +45,12 @@ bool AK(const std::string& tweak_id, const json& params) {
     }
 }
 
+
 bool MY(const std::string& key_path, const std::string& value_name, DWORD value_type, const void* data, DWORD data_size) {
+    
     std::string root_key_str = key_path.substr(0, key_path.find('\\'));
     std::string subkey = key_path.substr(key_path.find('\\') + 1);
+    
     
     HKEY root_key = NULL;
     if (root_key_str == "HKEY_CURRENT_USER" || root_key_str == "HKCU") {
@@ -58,6 +65,7 @@ bool MY(const std::string& key_path, const std::string& value_name, DWORD value_
         std::cerr << "Invalid root key: " << root_key_str << std::endl;
         return false;
     }
+    
     
     HKEY hKey;
     LONG result = RegCreateKeyExA(
@@ -77,6 +85,7 @@ bool MY(const std::string& key_path, const std::string& value_name, DWORD value_
         return false;
     }
     
+    
     result = RegSetValueExA(
         hKey,
         value_name.c_str(),
@@ -85,6 +94,7 @@ bool MY(const std::string& key_path, const std::string& value_name, DWORD value_
         static_cast<const BYTE*>(data),
         data_size
     );
+    
     
     RegCloseKey(hKey);
     
@@ -96,8 +106,10 @@ bool MY(const std::string& key_path, const std::string& value_name, DWORD value_
     return true;
 }
 
+
 bool ED(const std::string& command) {
     std::cout << "Executing command: " << command << std::endl;
+    
     
     int result = system(command.c_str());
     
@@ -109,8 +121,11 @@ bool ED(const std::string& command) {
     return true;
 }
 
+
 bool AK_BD(const json& params) {
+    
     bool registry_success = true;
+    
     
     std::string cmd = "bcdedit /set useplatformclock false";
     bool cmd_success = ED(cmd);
@@ -121,7 +136,9 @@ bool AK_BD(const json& params) {
     return registry_success || cmd_success;
 }
 
+
 bool AK_BS(const json& params) {
+    
     DWORD value = 1; 
     bool registry_success = MY(
         "HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications",
@@ -131,14 +148,18 @@ bool AK_BS(const json& params) {
         sizeof(value)
     );
     
+    
     std::string cmd = "powershell -Command \"Get-AppxPackage | ForEach {Add-AppxPackage -DisableDevelopmentMode -Register '$($_.InstallLocation)\\AppxManifest.xml'}\"";
     bool cmd_success = ED(cmd);
     
     return registry_success || cmd_success;
 }
 
+
 bool AK_MN(const json& params) {
+    
     bool registry_success = false;
+    
     
     std::string cmd = "powershell -Command \"Disable-MMAgent -MemoryCompression\"";
     bool cmd_success = ED(cmd);
@@ -146,8 +167,10 @@ bool AK_MN(const json& params) {
     return registry_success || cmd_success;
 }
 
+
 bool AK_RH(const json& params) {
-    DWORD value = 3; // 3 for Programs
+    
+    DWORD value = 3; 
     bool registry_success = MY(
         "HKLM\\SYSTEM\\CurrentControlSet\\Control\\PriorityControl",
         "Win32PrioritySeparation",
@@ -156,12 +179,16 @@ bool AK_RH(const json& params) {
         sizeof(value)
     );
     
+    
+    
     bool cmd_success = false;
     
     return registry_success || cmd_success;
 }
 
+
 bool AK_PE(const json& params) {
+    
     DWORD value = 0; 
     bool registry_success = MY(
         "HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management",
@@ -170,6 +197,7 @@ bool AK_PE(const json& params) {
         "",
         1
     );
+    
     
     std::string cmd = "wmic computersystem set AutomaticManagedPagefile=False";
     bool cmd_success = ED(cmd);
@@ -180,7 +208,9 @@ bool AK_PE(const json& params) {
     return registry_success || cmd_success;
 }
 
+
 bool AK_MA(const json& params) {
+    
     DWORD value = 0; 
     bool registry_success = MY(
         "HKCU\\Control Panel\\Mouse",
@@ -206,12 +236,16 @@ bool AK_MA(const json& params) {
         2
     );
     
+    
+    
     bool cmd_success = false;
     
     return registry_success || cmd_success;
 }
 
+
 bool AK_GR(const json& params) {
+    
     DWORD value = 0; 
     bool registry_success = MY(
         "HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR",
@@ -229,13 +263,16 @@ bool AK_GR(const json& params) {
         sizeof(value)
     );
     
+    
     std::string cmd = "powershell -Command \"New-ItemProperty -Path 'HKCU:\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\GameDVR' -Name AppCaptureEnabled -PropertyType DWORD -Value 0 -Force\"";
     bool cmd_success = ED(cmd);
     
     return registry_success || cmd_success;
 }
 
+
 bool AK_TY(const json& params) {
+    
     DWORD value = 0; 
     bool registry_success = MY(
         "HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\DataCollection",
@@ -245,6 +282,7 @@ bool AK_TY(const json& params) {
         sizeof(value)
     );
     
+    
     std::string cmd = "sc config DiagTrack start= disabled";
     bool cmd_success = ED(cmd);
     
@@ -253,6 +291,7 @@ bool AK_TY(const json& params) {
     
     return registry_success || cmd_success;
 }
+
 
 json PS(const json& tweaks) {
     json results;

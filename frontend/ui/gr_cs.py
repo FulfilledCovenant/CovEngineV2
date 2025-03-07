@@ -23,31 +23,32 @@ class LC(QWidget):
 
         self.setMinimumSize(200, 150)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-
+        
     def ad_pt(self, value):
         self.data_points.append(value)
 
         if value > self.max_value * 0.9:
             self.max_value = value * 1.1
-
-        self.update()
-
+            
+        self.update()  
+        
     def st_cl(self, color, gradient_top=None, gradient_bottom=None):
         self.color = QColor(color)
-
+        
         if gradient_top:
             self.gradient_top = QColor(gradient_top)
         else:
             self.gradient_top = self.color
-
+            
         if gradient_bottom:
             self.gradient_bottom = QColor(gradient_bottom)
         else:
+
             self.gradient_bottom = QColor(self.color)
             self.gradient_bottom.setAlpha(40)
-
+            
         self.update()
-
+        
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
@@ -77,7 +78,7 @@ class LC(QWidget):
 
         points_count = len(self.data_points)
         if points_count > 10:
-            step = max(1, points_count // 6)
+            step = max(1, points_count // 10)
             for i in range(0, points_count, step):
                 x = chart_rect.left() + (chart_rect.width() * (1 - (i / points_count)))
                 painter.setPen(QPen(QColor(255, 255, 255, 30), 1, Qt.DashLine))
@@ -141,21 +142,21 @@ class GG(QWidget):
 
         self.setMinimumSize(150, 150)
         self.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
-
+        
     def st_ve(self, value):
         self.value = max(self.min_value, min(value, self.max_value))
         self.update()
-
+        
     def st_rs(self, min_value, max_value):
         self.min_value = min_value
         self.max_value = max_value
         self.update()
-
+        
     def st_ts(self, warning, critical):
         self.warning_threshold = warning
         self.critical_threshold = critical
         self.update()
-
+        
     def paintEvent(self, event):
         painter = QPainter(self)
         painter.setRenderHint(QPainter.Antialiasing)
@@ -174,8 +175,8 @@ class GG(QWidget):
 
         painter.setPen(QPen(QColor(60, 60, 60), 10, Qt.SolidLine, Qt.RoundCap))
         painter.drawArc(center.x() - outer_radius, center.y() - outer_radius,
-                       outer_radius * 2, outer_radius * 2,
-                       225 * 16, 90 * 16)
+                       outer_radius * 2, outer_radius * 2, 
+                       225 * 16, 90 * 16)  
 
         value_range = self.max_value - self.min_value
         value_angle = 90 * (self.value - self.min_value) / value_range
@@ -189,8 +190,8 @@ class GG(QWidget):
 
         painter.setPen(QPen(arc_color, 10, Qt.SolidLine, Qt.RoundCap))
         painter.drawArc(center.x() - outer_radius, center.y() - outer_radius,
-                       outer_radius * 2, outer_radius * 2,
-                       225 * 16, -value_angle * 16)
+                       outer_radius * 2, outer_radius * 2, 
+                       225 * 16, -value_angle * 16)  
 
         painter.setPen(Qt.NoPen)
         painter.setBrush(QColor(30, 30, 30))
@@ -201,7 +202,7 @@ class GG(QWidget):
         value_font.setBold(True)
         value_font.setPointSize(16)
         painter.setFont(value_font)
-
+        
         value_text = f"{int(self.value)}"
         text_rect = QRectF(center.x() - inner_radius, center.y() - inner_radius / 2,
                           inner_radius * 2, inner_radius)
@@ -236,13 +237,15 @@ class CM(QWidget):
 
         self.last_update_time = 0
         self.ud_dt()
-
+        
     def ud_dt(self):
-        current_time = time.time()
-        if current_time - self.last_update_time < 1.0:
-            return
 
+        current_time = time.time()
+        if current_time - self.last_update_time < 1.0:  
+            return
+            
         try:
+
             cpu_percent = psutil.cpu_percent(interval=None)
             self.cpu_chart.ad_pt(cpu_percent)
 
@@ -250,7 +253,7 @@ class CM(QWidget):
 
             for i in range(min(len(per_cpu), len(self.core_gauges))):
                 self.core_gauges[i].st_ve(per_cpu[i])
-
+                
             self.last_update_time = current_time
         except Exception as e:
             print(f"Error updating CPU data: {e}")
@@ -278,13 +281,15 @@ class MM(QWidget):
 
         self.last_update_time = 0
         self.ud_dt()
-
+        
     def ud_dt(self):
-        current_time = time.time()
-        if current_time - self.last_update_time < 1.0:
-            return
 
+        current_time = time.time()
+        if current_time - self.last_update_time < 1.0:  
+            return
+            
         try:
+
             memory = psutil.virtual_memory()
             self.memory_chart.ad_pt(memory.percent)
             self.memory_gauge.st_ve(memory.percent)
@@ -292,7 +297,7 @@ class MM(QWidget):
             if self.swap_gauge:
                 swap = psutil.swap_memory()
                 self.swap_gauge.st_ve(swap.percent)
-
+                
             self.last_update_time = current_time
         except Exception as e:
             print(f"Error updating memory data: {e}")
@@ -315,18 +320,21 @@ class NM(QWidget):
         self.last_net_io = psutil.net_io_counters()
         self.last_time = time.time()
         self.last_update_time = 0
-
+        
     def ud_dt(self):
-        current_time = time.time()
-        if current_time - self.last_update_time < 1.0:
-            return
 
+        current_time = time.time()
+        if current_time - self.last_update_time < 1.0:  
+            return
+            
         try:
+
             current_net_io = psutil.net_io_counters()
 
             time_diff = current_time - self.last_time
-
+            
             if time_diff > 0:
+
                 download_speed = (current_net_io.bytes_recv - self.last_net_io.bytes_recv) / 1024 / time_diff
                 upload_speed = (current_net_io.bytes_sent - self.last_net_io.bytes_sent) / 1024 / time_diff
 
@@ -335,7 +343,7 @@ class NM(QWidget):
 
                 self.last_net_io = current_net_io
                 self.last_time = current_time
-
+                
             self.last_update_time = current_time
         except Exception as e:
-            print(f"Error updating network data: {e}")
+            print(f"Error updating network data: {e}") 

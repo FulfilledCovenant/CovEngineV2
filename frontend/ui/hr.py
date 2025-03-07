@@ -16,7 +16,7 @@ class HR(QWidget):
         self.current_theme = TM.DARK
 
         self.stUI()
-
+        
     def stUI(self):
         layout = QHBoxLayout(self)
         layout.setContentsMargins(20, 0, 20, 0)
@@ -37,11 +37,12 @@ class HR(QWidget):
         layout.addWidget(self.title_label)
         layout.addStretch()
         layout.addWidget(self.creator_label)
-
+        
     def ud_ss(self, theme_name):
         self.current_theme = theme_name
-
+        
         if theme_name == TM.DARK:
+
             self.title_label.setStyleSheet("color: white;")
             self.creator_label.setStyleSheet("color: #cccccc;")
 
@@ -49,9 +50,10 @@ class HR(QWidget):
             palette.setColor(QPalette.Window, QColor(40, 40, 40))
             self.setPalette(palette)
         else:
+
             self.title_label.setStyleSheet("color: #333333;")
             self.creator_label.setStyleSheet("color: #555555;")
 
             palette = self.palette()
             palette.setColor(QPalette.Window, QColor(230, 230, 230))
-            self.setPalette(palette)
+            self.setPalette(palette) 

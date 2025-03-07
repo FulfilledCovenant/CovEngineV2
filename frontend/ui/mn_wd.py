@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton,
+from PyQt5.QtWidgets import (QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QPushButton, 
                                QStackedWidget, QLabel, QSpacerItem, QSizePolicy, QMessageBox)
 from PyQt5.QtCore import Qt, QPropertyAnimation, QEasingCurve, QParallelAnimationGroup
 from PyQt5.QtGui import QFont, QIcon, QColor, QPalette
@@ -18,13 +18,35 @@ class MW(QMainWindow):
         self.setGeometry(100, 100, 1200, 800)
         self.setMinimumSize(1000, 700)
 
+        self.setStyleSheet(f"""
+            QMainWindow {{
+                background-color: {GS.DARK_THEME['bg_primary']};
+            }}
+            QScrollArea {{
+                border: none;
+                background-color: transparent;
+            }}
+            QScrollBar:vertical {{
+                background: {GS.DARK_THEME['bg_secondary']};
+                width: 10px;
+                margin: 0px;
+            }}
+            QScrollBar::handle:vertical {{
+                background: {GS.DARK_THEME['accent']};
+                min-height: 20px;
+                border-radius: 5px;
+            }}
+            QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical {{
+                height: 0px;
+            }}
         """)
 
         self.animations = []
 
         self.stUI()
-
+        
     def stUI(self):
+
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
 
@@ -35,6 +57,9 @@ class MW(QMainWindow):
         sidebar = self.cr_sb()
 
         content_container = QWidget()
+        content_container.setStyleSheet(f"""
+            background-color: {GS.DARK_THEME['bg_secondary']};
+            border-radius: 12px;
         """)
         content_layout = QVBoxLayout(content_container)
         content_layout.setContentsMargins(0, 0, 0, 0)
@@ -48,13 +73,17 @@ class MW(QMainWindow):
 
         self.ie_ps()
 
-        main_layout.addWidget(sidebar, 1)
-        main_layout.addWidget(content_container, 5)
+        main_layout.addWidget(sidebar, 1)  
+        main_layout.addWidget(content_container, 5)  
 
         self.cr_cs()
-
+        
     def cr_sb(self):
+
         sidebar = QWidget()
+        sidebar.setStyleSheet(f"""
+            background-color: {GS.DARK_THEME['bg_secondary']};
+            border-radius: 12px;
         """)
         sidebar_layout = QVBoxLayout(sidebar)
         sidebar_layout.setContentsMargins(15, 25, 15, 25)
@@ -78,6 +107,27 @@ class MW(QMainWindow):
 
         self.nav_buttons = {}
 
+        button_style = f"""
+            QPushButton {{
+                background-color: transparent;
+                color: {GS.DARK_THEME['text_primary']};
+                padding: 12px;
+                text-align: left;
+                border-radius: 6px;
+                font-weight: bold;
+                font-size: 14px;
+            }}
+            QPushButton:hover {{
+                background-color: rgba(61, 90, 254, 0.2);
+            }}
+            QPushButton:pressed {{
+                background-color: rgba(61, 90, 254, 0.3);
+            }}
+            QPushButton#active {{
+                background-color: {GS.DARK_THEME['accent']};
+                color: white;
+            }}
+        """
 
         home_btn = QPushButton("Home")
         home_btn.setObjectName("home")
@@ -115,14 +165,19 @@ class MW(QMainWindow):
         sidebar_layout.addWidget(settings_btn)
 
         sidebar_layout.addStretch()
-
+        
         return sidebar
-
+        
     def cr_hr(self):
+
         header = QWidget()
         header.setFixedHeight(60)
+        header.setStyleSheet(f"""
+            background-color: {GS.DARK_THEME['bg_tertiary']};
+            border-top-left-radius: 12px;
+            border-top-right-radius: 12px;
         """)
-
+        
         header_layout = QHBoxLayout(header)
         header_layout.setContentsMargins(20, 0, 20, 0)
 
@@ -135,10 +190,11 @@ class MW(QMainWindow):
 
         header_layout.addWidget(self.page_title)
         header_layout.addStretch()
-
+        
         return header
-
+        
     def ie_ps(self):
+
         self.home_page = HE(self)
         self.stacked_widget.addWidget(self.home_page)
 
@@ -153,15 +209,17 @@ class MW(QMainWindow):
 
         self.settings_page = SE()
         self.stacked_widget.addWidget(self.settings_page)
-
+        
     def cr_cs(self):
+
         self.nav_buttons["home"].clicked.connect(lambda: self.ce_pe("home", 0))
         self.nav_buttons["dashboard"].clicked.connect(lambda: self.ce_pe("dashboard", 1))
         self.nav_buttons["metrics"].clicked.connect(lambda: self.ce_pe("metrics", 2))
         self.nav_buttons["tweaks"].clicked.connect(lambda: self.ce_pe("tweaks", 3))
         self.nav_buttons["settings"].clicked.connect(lambda: self.ce_pe("settings", 4))
-
+        
     def ce_pe(self, page_name, index):
+
         self.page_title.setText(page_name.capitalize())
 
         for key, btn in self.nav_buttons.items():
@@ -169,6 +227,7 @@ class MW(QMainWindow):
                 btn.setObjectName("active")
             else:
                 btn.setObjectName(key)
+
             btn.style().unpolish(btn)
             btn.style().polish(btn)
 
@@ -176,12 +235,16 @@ class MW(QMainWindow):
 
         if page_name == "metrics":
             self.metrics_page.rf_dt()
-
+            
     def ay_fe(self, widget):
-        pass
 
+        pass
+        
     def ch_te(self):
-        QMessageBox.information(self, "Theme Toggle", "Theme toggling is currently disabled.")
 
+        QMessageBox.information(self, "Theme Toggle", "Theme toggling is currently disabled.")
+        
     def ud_ss(self):
-        pass
+
+
+        pass 

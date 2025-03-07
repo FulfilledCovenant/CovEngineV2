@@ -1,8 +1,8 @@
-from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QHBoxLayout,
+from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QHBoxLayout, 
                                QFrame, QProgressBar, QGridLayout, QScrollArea)
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtGui import QFont
-import psutil
+import psutil  
 import time
 from datetime import datetime
 
@@ -12,19 +12,20 @@ class DE(QWidget):
     def __init__(self):
         super().__init__()
 
-        self.tt_ug = 0
-        self.pc_ct = 0
-        self.gm_se = 0
+        self.tt_ug = 0  
+        self.pc_ct = 0  
+        self.gm_se = 0  
 
         self.stUI()
 
         self.timer = QTimer(self)
         self.timer.timeout.connect(self.ud_ms)
-        self.timer.start(3000)
+        self.timer.start(3000)  
 
         self.last_update_time = 0
-
+        
     def stUI(self):
+
         main_layout = QVBoxLayout(self)
         main_layout.setContentsMargins(0, 0, 0, 0)
         main_layout.setSpacing(0)
@@ -44,7 +45,7 @@ class DE(QWidget):
         header_container.setStyleSheet(f"background-color: {GS.DARK_THEME['bg_tertiary']}; border-radius: 10px;")
         header_layout = QVBoxLayout(header_container)
         header_layout.setContentsMargins(20, 20, 20, 20)
-
+        
         header_label = QLabel("Performance Dashboard")
         header_font = QFont()
         header_font.setPointSize(18)
@@ -54,18 +55,18 @@ class DE(QWidget):
 
         self.time_label = QLabel()
         self.time_label.setStyleSheet(f"color: {GS.DARK_THEME['text_secondary']}; background-color: transparent;")
-        self.ud_te()
-
+        self.ud_te()  
+        
         header_layout.addWidget(header_label)
         header_layout.addWidget(self.time_label)
-
+        
         scroll_layout.addWidget(header_container)
 
         overview_container = QWidget()
         overview_container.setStyleSheet(f"background-color: {GS.DARK_THEME['bg_tertiary']}; border-radius: 10px;")
         overview_layout = QVBoxLayout(overview_container)
         overview_layout.setContentsMargins(20, 20, 20, 20)
-
+        
         overview_title = QLabel("System Overview")
         overview_title.setFont(QFont("", 16, QFont.Bold))
         overview_title.setStyleSheet(f"color: {GS.DARK_THEME['text_primary']}; background-color: transparent;")
@@ -90,13 +91,13 @@ class DE(QWidget):
         score_container.setStyleSheet(f"background-color: {GS.DARK_THEME['bg_tertiary']}; border-radius: 10px;")
         score_layout = QVBoxLayout(score_container)
         score_layout.setContentsMargins(20, 20, 20, 20)
-
+        
         score_title = QLabel("Gaming Performance Score")
         score_title.setFont(QFont("", 16, QFont.Bold))
         score_title.setStyleSheet(f"color: {GS.DARK_THEME['text_primary']}; background-color: transparent;")
         score_layout.addWidget(score_title)
         score_layout.addSpacing(10)
-
+        
         score_content_layout = QHBoxLayout()
         score_content_layout.setContentsMargins(0, 0, 0, 0)
         score_content_layout.setSpacing(20)
@@ -107,18 +108,18 @@ class DE(QWidget):
         score_desc_layout = QVBoxLayout()
         score_desc_layout.setContentsMargins(0, 0, 0, 0)
         score_desc_layout.setSpacing(10)
-
+        
         self.score_desc = QLabel("Calculating your gaming performance score...")
         self.score_desc.setWordWrap(True)
         self.score_desc.setStyleSheet(f"color: {GS.DARK_THEME['text_secondary']}; background-color: transparent;")
 
         criteria_label = QLabel("Score Criteria: <120 processes = Excellent, <200 processes = Good")
         criteria_label.setStyleSheet(f"color: {GS.DARK_THEME['text_secondary']}; font-size: 11px; background-color: transparent;")
-
+        
         score_desc_layout.addWidget(self.score_desc)
         score_desc_layout.addWidget(criteria_label)
         score_desc_layout.addStretch()
-
+        
         score_content_layout.addLayout(score_desc_layout)
         score_layout.addLayout(score_content_layout)
 
@@ -128,14 +129,18 @@ class DE(QWidget):
 
         scroll_area.setWidget(scroll_content)
         main_layout.addWidget(scroll_area)
-
+        
     def ud_te(self):
         current_time = datetime.now()
         formatted_time = current_time.strftime("%Y-%m-%d %H:%M:%S")
         self.time_label.setText(f"Last Updated: {formatted_time}")
-
+        
     def ce_mc(self, title, value, color):
         frame = QWidget()
+        frame.setStyleSheet(f"""
+            background-color: {GS.DARK_THEME['bg_primary']};
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
         """)
         layout = QVBoxLayout(frame)
         layout.setContentsMargins(15, 15, 15, 15)
@@ -156,15 +161,26 @@ class DE(QWidget):
         progress.setValue(0)
         progress.setTextVisible(False)
         progress.setFixedHeight(6)
+        progress.setStyleSheet(f"""
+            QProgressBar {{
+                background-color: rgba(30, 30, 30, 150);
+                border-radius: 3px;
+                border: none;
+            }}
+            QProgressBar::chunk {{
+                background-color: {color};
+                border-radius: 3px;
+            }}
         """)
         layout.addWidget(progress)
-
+        
         return frame
-
+        
     def ud_ms(self):
         try:
+
             current_time = time.time()
-            if current_time - self.last_update_time < 2.5:
+            if current_time - self.last_update_time < 2.5:  
                 return
 
             self.ud_te()
@@ -178,19 +194,19 @@ class DE(QWidget):
             self.pc_ct = len(psutil.pids())
 
             if self.pc_ct < 120:
-                self.gm_se = 95
+                self.gm_se = 95  
                 score_color = GS.DARK_THEME["success"]
                 score_message = "Excellent! Your system has minimal background processes for optimal gaming."
             elif self.pc_ct < 200:
-                self.gm_se = 80
+                self.gm_se = 80  
                 score_color = GS.DARK_THEME["info"]
                 score_message = "Good performance. Your system has a reasonable number of processes running."
             elif self.pc_ct < 250:
-                self.gm_se = 65
+                self.gm_se = 65  
                 score_color = GS.DARK_THEME["warning"]
                 score_message = "Average performance. Consider closing unnecessary applications."
             else:
-                self.gm_se = 50
+                self.gm_se = 50  
                 score_color = GS.DARK_THEME["error"]
                 score_message = "Too many processes are running. Close unnecessary applications for better gaming performance."
 
@@ -204,6 +220,7 @@ class DE(QWidget):
             process_bar = self.findChild(QProgressBar, "process_count_bar")
             if process_value and process_bar:
                 process_value.setText(f"{self.pc_ct}")
+
                 process_percentage = min(int(self.pc_ct / 3), 100)
                 process_bar.setValue(process_percentage)
 
@@ -217,6 +234,6 @@ class DE(QWidget):
                 self.score_desc.setText(score_message)
 
             self.last_update_time = current_time
-
+            
         except Exception as e:
-            print(f"Error updating metrics: {e}")
+            print(f"Error updating metrics: {e}") 

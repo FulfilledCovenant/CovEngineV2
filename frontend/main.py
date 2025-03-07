@@ -11,18 +11,14 @@ from frontend.core.bc import BC
 bc_instance = None
 
 def MN():
+
     global bc_instance
-
     app = QApplication(sys.argv)
-
     TM.ap_dk(app)
-
     bc_instance = BC()
-
     window = MW()
     window.show()
-
     sys.exit(app.exec_())
 
 if __name__ == "__main__":
-    MN()
+    MN() 

@@ -3,12 +3,16 @@
 #include <Windows.h>
 #include <cstdlib>
 #include "nlohmann/json.hpp"
+#include "tweaks.h"
 
 using json = nlohmann::json;
 
+
 bool MY(const std::string& key_path, const std::string& value_name, DWORD value_type, const void* data, DWORD data_size) {
+    
     std::string root_key_str = key_path.substr(0, key_path.find('\\'));
     std::string subkey = key_path.substr(key_path.find('\\') + 1);
+    
     
     HKEY root_key = NULL;
     if (root_key_str == "HKEY_CURRENT_USER" || root_key_str == "HKCU") {
@@ -23,6 +27,7 @@ bool MY(const std::string& key_path, const std::string& value_name, DWORD value_
         std::cerr << "Invalid root key: " << root_key_str << std::endl;
         return false;
     }
+    
     
     HKEY hKey;
     LONG result = RegCreateKeyExA(
@@ -42,6 +47,7 @@ bool MY(const std::string& key_path, const std::string& value_name, DWORD value_
         return false;
     }
     
+    
     result = RegSetValueExA(
         hKey,
         value_name.c_str(),
@@ -50,6 +56,7 @@ bool MY(const std::string& key_path, const std::string& value_name, DWORD value_
         static_cast<const BYTE*>(data),
         data_size
     );
+    
     
     RegCloseKey(hKey);
     
@@ -60,6 +67,7 @@ bool MY(const std::string& key_path, const std::string& value_name, DWORD value_
     
     return true;
 }
+
 
 bool ED(const std::string& command) {
     std::cout << "Executing command: " << command << std::endl;
@@ -73,6 +81,7 @@ bool ED(const std::string& command) {
     return true;
 }
 
+
 json PS(const json& tweaks) {
     json results;
     json successful = json::array();
@@ -85,6 +94,7 @@ json PS(const json& tweaks) {
         std::cout << "Processing tweak: " << tweak_id << " (Category: " << category << ")" << std::endl;
         
         bool success = false;
+        
         
         if (tweak_id == "configure_bcdedit") {
             success = AK_BD(tweak);
@@ -115,6 +125,7 @@ json PS(const json& tweaks) {
         } else if (tweak_id == "disable_spectre_and_meltdown") {
             success = AK_SM(tweak);
         }
+        
         else if (tweak_id == "disable_mouse_acceleration") {
             success = AK_MA(tweak);
         } else if (tweak_id == "optimize_visual_effects") {
@@ -148,6 +159,7 @@ json PS(const json& tweaks) {
         } else if (tweak_id == "disable_fullscreen_optimizations") {
             success = AK_FS(tweak);
         }
+        
         else if (tweak_id == "disable_location_tracking") {
             success = AK_LT(tweak);
         } else if (tweak_id == "disable_telemetry") {
@@ -195,6 +207,7 @@ json PS(const json& tweaks) {
         } else if (tweak_id == "disable_app_access_to_videos") {
             success = AK_VD(tweak);
         }
+        
         else if (tweak_id == "restrict_anonymous_access") {
             success = AK_RA(tweak);
         } else if (tweak_id == "restrict_anonymous_enumeration_of_shares") {
