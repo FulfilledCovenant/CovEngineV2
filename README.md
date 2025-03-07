@@ -27,6 +27,12 @@ See [BUILD_INSTRUCTIONS.md](./BUILD_INSTRUCTIONS.md) for details on how to build
 
 Or, download the latest release thats already built.
 
+## Community
+
+Join our Discord server to get help, share feedback, and connect with other users:
+
+[Join the CovEngineV2 Discord](https://discord.gg/btHSfdSg)
+
 ## Documentation
 
 Additional documentation and future tweaks can be found in the [docs](./docs) folder. 
