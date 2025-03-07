@@ -59,7 +59,7 @@ python build.py
 
 ## Installation
 
-After building, the application can be found in the `dist/CovEngineV2` directory.
+After building, the application can be found in the `dist/CovEngineV2` directory, not `build`
 
 ## Usage
 
@@ -69,6 +69,3 @@ Run the application with administrator privileges:
 dist/CovEngineV2/CovEngineV2.exe
 ```
 
-## Notes
-
-Workflows is currently flawed.
