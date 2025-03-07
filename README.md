@@ -25,7 +25,7 @@ This project is divided into two main parts:
 
 See [BUILD_INSTRUCTIONS.md](./BUILD_INSTRUCTIONS.md) for details on how to build and run the application.
 
-Or, download the latest release thats already built.
+Or, download the latest [release](./https://github.com/FulfilledCovenant/CovEngineV2/releases/tag/v1) thats already built.
 
 ## Community
 
