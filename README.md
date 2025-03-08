@@ -11,7 +11,7 @@ This project is divided into two main parts:
 - **FE**: Frontend based on Python Qt
 - **BE**: Backend in C/C++
 
-## Latest Changes
+## Latest Changes (v1.2.1)
 
 **18** new tweaks:
 
