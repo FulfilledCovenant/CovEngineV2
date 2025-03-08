@@ -158,6 +158,42 @@ json PS(const json& tweaks) {
             success = AK_GM(tweak);
         } else if (tweak_id == "disable_fullscreen_optimizations") {
             success = AK_FS(tweak);
+        } else if (tweak_id == "optimize_controller_settings") {
+            success = AK_OC(tweak);
+        } else if (tweak_id == "enhance_pointer_precision") {
+            success = AK_EP(tweak);
+        } else if (tweak_id == "optimize_gpu_settings") {
+            success = AK_OG(tweak);
+        } else if (tweak_id == "optimize_directx") {
+            success = AK_OD(tweak);
+        } else if (tweak_id == "optimize_vulkan") {
+            success = AK_OV(tweak);
+        } else if (tweak_id == "optimize_tcp_settings") {
+            success = AK_OT(tweak);
+        } else if (tweak_id == "optimize_udp_settings") {
+            success = AK_OU(tweak);
+        } else if (tweak_id == "reduce_network_latency") {
+            success = AK_RL(tweak);
+        } else if (tweak_id == "prioritize_game_traffic") {
+            success = AK_PG(tweak);
+        } else if (tweak_id == "optimize_dns_settings") {
+            success = AK_OS(tweak);
+        } else if (tweak_id == "disable_hpet") {
+            success = AK_HP(tweak);
+        } else if (tweak_id == "disable_onedrive") {
+            success = AK_DO(tweak);
+        } else if (tweak_id == "disable_superfetch") {
+            success = AK_SF(tweak);
+        } else if (tweak_id == "disable_hibernation") {
+            success = AK_HB(tweak);
+        } else if (tweak_id == "optimize_timer_resolution") {
+            success = AK_TR(tweak);
+        } else if (tweak_id == "disable_dynamic_tick") {
+            success = AK_DT(tweak);
+        } else if (tweak_id == "disable_nvidia_telemetry") {
+            success = AK_NT(tweak);
+        } else if (tweak_id == "disable_amd_telemetry") {
+            success = AK_AT(tweak);
         }
         
         else if (tweak_id == "disable_location_tracking") {

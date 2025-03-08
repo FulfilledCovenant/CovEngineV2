@@ -278,9 +278,13 @@ bool AK_RS(const json& params) {
 }
 
 bool AK_SF(const json& params) {
-    DWORD value = 0;
-    bool s = MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\System", 
-              "EnableSmartScreen", REG_DWORD, &value, sizeof(value));
+    DWORD value = 4;
+    bool s = MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\SysMain", 
+              "Start", REG_DWORD, &value, sizeof(value));
+    
+    s &= ED("sc stop SysMain");
+    s &= ED("sc config SysMain start= disabled");
+    
     return s;
 }
 
@@ -583,4 +587,293 @@ bool AK_TY(const json& params) {
     cmd_success = cmd_success && ED(cmd);
     
     return registry_success || cmd_success;
+}
+
+bool AK_OC(const json& params) {
+    DWORD value = 1;
+    bool s = MY("HKCU\\Control Panel\\Accessibility\\Keyboard Response", 
+              "AutoRepeatDelay", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 1;
+    s &= MY("HKCU\\Control Panel\\Accessibility\\Keyboard Response", 
+              "AutoRepeatRate", REG_DWORD, &value2, sizeof(value2));
+    
+    DWORD value3 = 0;
+    s &= MY("HKCU\\Control Panel\\Accessibility\\Keyboard Response", 
+              "DelayBeforeAcceptance", REG_DWORD, &value3, sizeof(value3));
+    
+    return s;
+}
+
+bool AK_EP(const json& params) {
+    DWORD value = 1;
+    bool s = MY("HKCU\\Control Panel\\Mouse", 
+              "MouseSpeed", REG_SZ, "1", 2);
+    
+    s &= MY("HKCU\\Control Panel\\Mouse", 
+              "MouseThreshold1", REG_SZ, "6", 2);
+    
+    s &= MY("HKCU\\Control Panel\\Mouse", 
+              "MouseThreshold2", REG_SZ, "10", 2);
+    
+    return s;
+}
+
+bool AK_OG(const json& params) {
+    DWORD value = 1;
+    bool s = MY("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games", 
+              "Affinity", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 2;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games", 
+              "Background Only", REG_SZ, "False", 6);
+    
+    DWORD value3 = 1;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games", 
+              "Clock Rate", REG_DWORD, &value3, sizeof(value3));
+    
+    DWORD value4 = 8;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games", 
+              "GPU Priority", REG_DWORD, &value4, sizeof(value4));
+    
+    DWORD value5 = 6;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games", 
+              "Priority", REG_DWORD, &value5, sizeof(value5));
+    
+    DWORD value6 = 1;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile\\Tasks\\Games", 
+              "Scheduling Category", REG_SZ, "High", 5);
+    
+    DWORD value7 = 2;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile", 
+              "SystemResponsiveness", REG_DWORD, &value7, sizeof(value7));
+    
+    return s;
+}
+
+bool AK_OD(const json& params) {
+    DWORD value = 1;
+    bool s = MY("HKLM\\SOFTWARE\\Microsoft\\DirectX", 
+              "ForceDirectDrawEmulation", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 0;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\DirectX", 
+              "DisableMaximizedWindowedModeShim", REG_DWORD, &value2, sizeof(value2));
+    
+    return s;
+}
+
+bool AK_OV(const json& params) {
+    bool s = ED("reg add \"HKLM\\SOFTWARE\\Khronos\\Vulkan\\ImplicitLayers\" /f");
+    
+    s &= ED("reg add \"HKLM\\SOFTWARE\\Khronos\\Vulkan\\ExplicitLayers\" /f");
+    
+    return s;
+}
+
+bool AK_OT(const json& params) {
+    DWORD value = 1;
+    bool s = MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", 
+              "GlobalMaxTcpWindowSize", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 0;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", 
+              "TcpTimedWaitDelay", REG_DWORD, &value2, sizeof(value2));
+    
+    DWORD value3 = 1;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", 
+              "DisableTaskOffload", REG_DWORD, &value3, sizeof(value3));
+    
+    DWORD value4 = 1;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", 
+              "EnablePMTUDiscovery", REG_DWORD, &value4, sizeof(value4));
+    
+    DWORD value5 = 1;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", 
+              "EnablePMTUBHDetect", REG_DWORD, &value5, sizeof(value5));
+    
+    return s;
+}
+
+bool AK_OU(const json& params) {
+    DWORD value = 0xFFFFFFFF;
+    bool s = MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", 
+              "MaxUserPort", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 0;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", 
+              "SackOpts", REG_DWORD, &value2, sizeof(value2));
+    
+    DWORD value3 = 1;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", 
+              "DefaultTTL", REG_DWORD, &value3, sizeof(value3));
+    
+    return s;
+}
+
+bool AK_RL(const json& params) {
+    DWORD value = 0;
+    bool s = MY("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile", 
+              "NetworkThrottlingIndex", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 1;
+    s &= MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Psched", 
+              "NonBestEffortLimit", REG_DWORD, &value2, sizeof(value2));
+    
+    DWORD value3 = 0;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\Tcpip\\Parameters", 
+              "Tcp1323Opts", REG_DWORD, &value3, sizeof(value3));
+    
+    return s;
+}
+
+bool AK_PG(const json& params) {
+    DWORD value = 1;
+    bool s = MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\QoS", 
+              "Enabled", REG_DWORD, &value, sizeof(value));
+    
+    const char* value2 = "1";
+    s &= MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\QoS", 
+              "ApplicationDSCPMarkingEnabled", REG_SZ, value2, 2);
+    
+    return s;
+}
+
+bool AK_OS(const json& params) {
+    bool s = ED("netsh interface ip set dns \"Ethernet\" static 1.1.1.1 primary");
+    
+    s &= ED("netsh interface ip add dns \"Ethernet\" 1.0.0.1 index=2");
+    
+    return s;
+}
+
+bool AK_HP(const json& params) {
+    bool s = ED("bcdedit /deletevalue useplatformclock");
+    s &= ED("bcdedit /set disabledynamictick yes");
+    
+    DWORD value = 0;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\TimeBrokerSvc", 
+              "Start", REG_DWORD, &value, sizeof(value));
+    
+    return s;
+}
+
+bool AK_DO(const json& params) {
+    bool force = false;
+    
+    if (params.contains("force") && params["force"].is_boolean()) {
+        force = params["force"];
+    }
+    
+    if (!force) {
+        char onedrive_path[MAX_PATH];
+        DWORD size = sizeof(onedrive_path);
+        HKEY hKey;
+        
+        if (RegOpenKeyExA(HKEY_CURRENT_USER, "SOFTWARE\\Microsoft\\OneDrive", 0, KEY_READ, &hKey) == ERROR_SUCCESS) {
+            if (RegQueryValueExA(hKey, "UserFolder", NULL, NULL, (LPBYTE)onedrive_path, &size) == ERROR_SUCCESS) {
+                RegCloseKey(hKey);
+                
+                WIN32_FIND_DATAA findData;
+                std::string search_path = std::string(onedrive_path) + "\\*";
+                HANDLE hFind = FindFirstFileA(search_path.c_str(), &findData);
+                
+                if (hFind != INVALID_HANDLE_VALUE) {
+                    int file_count = 0;
+                    do {
+                        if (strcmp(findData.cFileName, ".") != 0 && strcmp(findData.cFileName, "..") != 0) {
+                            file_count++;
+                            if (file_count > 5) {
+                                FindClose(hFind);
+                                std::cerr << "OneDrive folder contains files. Use force parameter to proceed anyway." << std::endl;
+                                return false;
+                            }
+                        }
+                    } while (FindNextFileA(hFind, &findData));
+                    
+                    FindClose(hFind);
+                }
+            } else {
+                RegCloseKey(hKey);
+            }
+        }
+    }
+    
+    DWORD value = 1;
+    bool s = MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\OneDrive", 
+              "DisableFileSyncNGSC", REG_DWORD, &value, sizeof(value));
+    
+    s &= ED("taskkill /f /im OneDrive.exe");
+    s &= ED("C:\\Windows\\SysWOW64\\OneDriveSetup.exe /uninstall");
+    s &= ED("C:\\Windows\\System32\\OneDriveSetup.exe /uninstall");
+    
+    return s;
+}
+
+bool AK_HB(const json& params) {
+    bool s = ED("powercfg -h off");
+    
+    DWORD value = 0;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power", 
+              "HibernateEnabled", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 0;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power", 
+              "HibernateEnabledDefault", REG_DWORD, &value2, sizeof(value2));
+    
+    return s;
+}
+
+bool AK_TR(const json& params) {
+    bool s = ED("bcdedit /set useplatformtick yes");
+    s &= ED("bcdedit /set disabledynamictick yes");
+    
+    DWORD value = 1;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile", 
+              "SystemResponsiveness", REG_DWORD, &value, sizeof(value));
+    
+    s &= ED("powershell -Command \"New-ItemProperty -Path 'HKLM:\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Multimedia\\SystemProfile' -Name 'SystemResponsiveness' -PropertyType DWORD -Value 0 -Force\"");
+    
+    return s;
+}
+
+bool AK_NT(const json& params) {
+    DWORD value = 4;
+    bool s = MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\NvTelemetryContainer", 
+              "Start", REG_DWORD, &value, sizeof(value));
+    
+    s &= ED("sc stop NvTelemetryContainer");
+    s &= ED("sc config NvTelemetryContainer start= disabled");
+    
+    DWORD value2 = 0;
+    s &= MY("HKLM\\SOFTWARE\\NVIDIA Corporation\\NvControlPanel2\\Client", 
+              "OptInOrOutPreference", REG_DWORD, &value2, sizeof(value2));
+    
+    DWORD value3 = 0;
+    s &= MY("HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\FTS", 
+              "EnableRID", REG_DWORD, &value3, sizeof(value3));
+    
+    DWORD value4 = 0;
+    s &= MY("HKLM\\SOFTWARE\\NVIDIA Corporation\\Global\\FTS", 
+              "EnableAppTelemetry", REG_DWORD, &value4, sizeof(value4));
+    
+    return s;
+}
+
+bool AK_AT(const json& params) {
+    DWORD value = 4;
+    bool s = MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\AMD Crash Defender Service", 
+              "Start", REG_DWORD, &value, sizeof(value));
+    
+    s &= ED("sc stop \"AMD Crash Defender Service\"");
+    s &= ED("sc config \"AMD Crash Defender Service\" start= disabled");
+    
+    DWORD value2 = 4;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Services\\AMD Log Utility", 
+              "Start", REG_DWORD, &value2, sizeof(value2));
+    
+    s &= ED("sc stop \"AMD Log Utility\"");
+    s &= ED("sc config \"AMD Log Utility\" start= disabled");
+    
+    return s;
 } 

@@ -47,42 +47,23 @@ class TM:
                 with open(batch_file, "w") as f:
                     f.write('@echo off\n')
                     f.write('echo Creating system restore point...\n')
-                    f.write('powershell -Command __STRING_PLACEHOLDER_35__\n')
+                    f.write('powershell -Command "Checkpoint-Computer -Description \'CovEngineV2 Tweaks\' -RestorePointType \'APPLICATION_INSTALL\'" 2>nul\n')
                     f.write('if %errorlevel% equ 0 (\n')
                     f.write('    echo System restore point created successfully.\n')
                     f.write('    exit /b 0\n')
                     f.write(') else (\n')
                     f.write('    echo Failed to create system restore point.\n')
                     f.write('    exit /b 1\n')
-                    f.write(')')
+                    f.write(')\n')
             
-            if os.name == 'nt':
-                result = ctypes.windll.shell32.ShellExecuteW(
-                    None, 
-                    "runas", 
-                    batch_file,
-                    None, 
-                    None, 
-                    1  
-                )
-                
-                if result > 32:
-                    self.logger.info("System restore point creation initiated")
-                    return {"success": True, "message": "System restore point creation initiated"}
-                else:
-                    self.logger.error(f"Failed to run batch file as admin: {result}")
-                    return {"success": False, "message": f"Failed to run batch file as admin: {result}"}
+            result = subprocess.run([batch_file], capture_output=True, text=True, shell=True)
+            
+            if result.returncode == 0:
+                self.logger.info("System restore point created successfully")
+                return {"success": True, "message": "System restore point created successfully"}
             else:
-                cmd = "powershell -Command \"Checkpoint-Computer -Description 'CovEngineV2 Tweaks' -RestorePointType 'APPLICATION_INSTALL'\""
-                result = subprocess.run(cmd, shell=True, capture_output=True, text=True)
-                
-                if result.returncode == 0:
-                    self.logger.info("System restore point created successfully")
-                    return {"success": True, "message": "System restore point created successfully"}
-                else:
-                    self.logger.error(f"Failed to create system restore point: {result.stderr}")
-                    return {"success": False, "message": f"Failed to create system restore point: {result.stderr}"}
-                    
+                self.logger.warning(f"Failed to create system restore point: {result.stderr}")
+                return {"success": False, "message": f"Failed to create system restore point: {result.stderr}"}
         except Exception as e:
             self.logger.error(f"Error creating system restore point: {str(e)}")
             return {"success": False, "message": f"Error creating system restore point: {str(e)}"}
@@ -104,7 +85,12 @@ class TM:
         backend_tweaks = []
         for category, tweak_ids in tweaks.items():
             for tweak_id in tweak_ids:
-                backend_tweaks.append({"id": tweak_id, "category": category})
+                tweak_data = {"id": tweak_id, "category": category}
+                
+                if tweak_id == "disable_onedrive":
+                    tweak_data["force"] = True
+                    
+                backend_tweaks.append(tweak_data)
         
         if not backend_tweaks:
             self.logger.warning("No tweaks selected for application")
@@ -179,7 +165,13 @@ class TM:
             "disable_windows_defender",
             "disable_firewall",
             "disable_smb1",
-            "disable_mouse_acceleration"
+            "disable_mouse_acceleration",
+            "disable_hpet",
+            "disable_onedrive",
+            "disable_superfetch",
+            "disable_hibernation",
+            "optimize_timer_resolution",
+            "disable_dynamic_tick"
         ]
         
         return tweak_id in restart_tweaks

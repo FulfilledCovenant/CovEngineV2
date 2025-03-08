@@ -57,7 +57,7 @@ class TS(QWidget):
         )
         description.setWordWrap(True)
         description.setFont(QFont("Segoe UI", 10))
-        description.setStyleSheet("color: #888888;")
+        description.setStyleSheet("color: 888888;")
         main_layout.addWidget(description)
 
         self.tabs = QTabWidget()
@@ -160,6 +160,40 @@ class TS(QWidget):
             return
 
         total_tweaks = sum(len(tweaks) for tweaks in selected_tweaks.values())
+        
+        onedrive_selected = False
+        for category, tweaks in selected_tweaks.items():
+            if "disable_onedrive" in tweaks:
+                onedrive_selected = True
+                break
+                
+        if onedrive_selected:
+            onedrive_warning = QMessageBox()
+            onedrive_warning.setWindowTitle("OneDrive Warning")
+            onedrive_warning.setText("Warning: You are about to disable OneDrive")
+            onedrive_warning.setInformativeText(
+                "This tweak will disable and uninstall Microsoft OneDrive.\n\n"
+                "If you have files or folders stored in OneDrive, you may lose access to them.\n"
+                "Please ensure all your OneDrive files are synced to your local device before proceeding.\n\n"
+                "Do you want to continue with disabling OneDrive?"
+            )
+            onedrive_warning.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
+            onedrive_warning.setDefaultButton(QMessageBox.No)
+            onedrive_warning.setIcon(QMessageBox.Critical)
+            
+            if onedrive_warning.exec_() != QMessageBox.Yes:
+                for category in selected_tweaks:
+                    if "disable_onedrive" in selected_tweaks[category]:
+                        selected_tweaks[category].remove("disable_onedrive")
+                        
+                total_tweaks = sum(len(tweaks) for tweaks in selected_tweaks.values())
+                if total_tweaks == 0:
+                    QMessageBox.information(
+                        self,
+                        "No Tweaks Selected",
+                        "No tweaks left to apply after removing OneDrive tweak."
+                    )
+                    return
 
         msg = QMessageBox()
         msg.setWindowTitle("Confirm Tweak Application")

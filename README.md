@@ -11,6 +11,34 @@ This project is divided into two main parts:
 - **FE**: Frontend based on Python Qt
 - **BE**: Backend in C/C++
 
+## Latest Changes
+
+**18** new tweaks:
+
+- Input & Response Tweaks
+- Optimize Controller Settings
+- Enhance Pointer Precision 
+- Graphics & Performance Tweaks
+- Optimize GPU Settings 
+- Optimize DirectX 
+- Optimize Vulkan 
+- Network Optimization Tweaks 
+- Optimize TCP Settings 
+- Optimize UDP Settings 
+- Reduce Network Latency 
+- Prioritize Game Traffic 
+- Optimize DNS Settings 
+- Advanced Tweaks 
+- Disable HPET 
+- Disable OneDrive 
+- Disable SuperFetch 
+- Disable Hibernation 
+- Optimize Timer Resolution 
+- Disable Dynamic Tick 
+- Disable NVIDIA Telemetry 
+- Disable AMD Telemetry 
+
+
 ## Features
 
 ![CovEngineV2 Screenshot](./image.png)
@@ -25,7 +53,7 @@ This project is divided into two main parts:
 
 See [BUILD_INSTRUCTIONS.md](./BUILD_INSTRUCTIONS.md) for details on how to build and run the application.
 
-Or, download the latest [release](https://github.com/FulfilledCovenant/CovEngineV2/releases/tag/v1) thats already built.
+Or, download the latest release thats already built.
 
 ## Community
 

@@ -47,6 +47,25 @@ bool AK_GD(const json& params);
 bool AK_GM(const json& params); 
 bool AK_FS(const json& params); 
 
+bool AK_OC(const json& params);
+bool AK_EP(const json& params);
+bool AK_OG(const json& params);
+bool AK_OD(const json& params);
+bool AK_OV(const json& params);
+bool AK_OT(const json& params);
+bool AK_OU(const json& params);
+bool AK_RL(const json& params);
+bool AK_PG(const json& params);
+bool AK_OS(const json& params);
+
+bool AK_HP(const json& params);
+bool AK_DO(const json& params);
+bool AK_SF(const json& params);
+bool AK_HB(const json& params);
+bool AK_TR(const json& params);
+bool AK_DT(const json& params);
+bool AK_NT(const json& params);
+bool AK_AT(const json& params);
 
 bool AK_LT(const json& params); 
 bool AK_TY(const json& params); 
