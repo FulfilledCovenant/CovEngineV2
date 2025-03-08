@@ -13,7 +13,7 @@ This project is divided into two main parts:
 
 ## Latest Changes (v1.2.1)
 
-**18** new tweaks:
+# 18 new tweaks:
 
 - Input & Response Tweaks
 - Optimize Controller Settings
