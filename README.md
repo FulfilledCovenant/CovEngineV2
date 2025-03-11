@@ -11,32 +11,19 @@ This project is divided into two main parts:
 - **FE**: Frontend based on Python Qt
 - **BE**: Backend in C/C++
 
-## Latest Changes (v1.2.1)
+## Latest Changes (v1.3)
 
-# 18 new tweaks:
+**9** new system tweaks:
 
-- Input & Response Tweaks
-- Optimize Controller Settings
-- Enhance Pointer Precision 
-- Graphics & Performance Tweaks
-- Optimize GPU Settings 
-- Optimize DirectX 
-- Optimize Vulkan 
-- Network Optimization Tweaks 
-- Optimize TCP Settings 
-- Optimize UDP Settings 
-- Reduce Network Latency 
-- Prioritize Game Traffic 
-- Optimize DNS Settings 
-- Advanced Tweaks 
-- Disable HPET 
-- Disable OneDrive 
-- Disable SuperFetch 
-- Disable Hibernation 
-- Optimize Timer Resolution 
-- Disable Dynamic Tick 
-- Disable NVIDIA Telemetry 
-- Disable AMD Telemetry 
+- Disable Startup Delay
+- Optimize Processor Power
+- Optimize Visual Effects
+- Disable Automatic Updates
+- Optimize Disk Cleanup
+- Disable Windows Tips
+- Optimize Indexing Options
+- Disable Transparency Effects
+- Optimize Virtual Memory
 
 
 ## Features

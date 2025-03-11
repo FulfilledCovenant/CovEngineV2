@@ -124,6 +124,24 @@ json PS(const json& tweaks) {
             success = AK_SS(tweak);
         } else if (tweak_id == "disable_spectre_and_meltdown") {
             success = AK_SM(tweak);
+        } else if (tweak_id == "disable_startup_delay") {
+            success = AK_SD(tweak);
+        } else if (tweak_id == "optimize_processor_power") {
+            success = AK_OP(tweak);
+        } else if (tweak_id == "optimize_visual_effects") {
+            success = AK_OV(tweak);
+        } else if (tweak_id == "disable_automatic_updates") {
+            success = AK_DA(tweak);
+        } else if (tweak_id == "optimize_disk_cleanup") {
+            success = AK_DC(tweak);
+        } else if (tweak_id == "disable_windows_tips") {
+            success = AK_DW(tweak);
+        } else if (tweak_id == "optimize_indexing") {
+            success = AK_OI(tweak);
+        } else if (tweak_id == "disable_transparency") {
+            success = AK_DE(tweak);
+        } else if (tweak_id == "optimize_virtual_memory") {
+            success = AK_VM(tweak);
         }
         
         else if (tweak_id == "disable_mouse_acceleration") {

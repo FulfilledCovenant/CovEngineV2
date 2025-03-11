@@ -589,18 +589,25 @@ bool AK_TY(const json& params) {
     return registry_success || cmd_success;
 }
 
-bool AK_OC(const json& params) {
+bool AK_DC(const json& params) {
+    bool s = ED("cleanmgr /sageset:1");
+    s &= ED("schtasks /create /tn \"Disk Cleanup\" /tr \"cleanmgr /sagerun:1\" /sc weekly /d SUN /st 00:00 /ru SYSTEM /f");
+    
     DWORD value = 1;
-    bool s = MY("HKCU\\Control Panel\\Accessibility\\Keyboard Response", 
-              "AutoRepeatDelay", REG_DWORD, &value, sizeof(value));
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VolumeCaches\\Active Setup Temp Folders", 
+              "StateFlags0001", REG_DWORD, &value, sizeof(value));
     
     DWORD value2 = 1;
-    s &= MY("HKCU\\Control Panel\\Accessibility\\Keyboard Response", 
-              "AutoRepeatRate", REG_DWORD, &value2, sizeof(value2));
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VolumeCaches\\Downloaded Program Files", 
+              "StateFlags0001", REG_DWORD, &value2, sizeof(value2));
     
-    DWORD value3 = 0;
-    s &= MY("HKCU\\Control Panel\\Accessibility\\Keyboard Response", 
-              "DelayBeforeAcceptance", REG_DWORD, &value3, sizeof(value3));
+    DWORD value3 = 1;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VolumeCaches\\Internet Cache Files", 
+              "StateFlags0001", REG_DWORD, &value3, sizeof(value3));
+    
+    DWORD value4 = 1;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VolumeCaches\\Temporary Files", 
+              "StateFlags0001", REG_DWORD, &value4, sizeof(value4));
     
     return s;
 }
@@ -664,9 +671,25 @@ bool AK_OD(const json& params) {
 }
 
 bool AK_OV(const json& params) {
-    bool s = ED("reg add \"HKLM\\SOFTWARE\\Khronos\\Vulkan\\ImplicitLayers\" /f");
+    DWORD value = 2;
+    bool s = MY("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\VisualEffects", 
+              "VisualFXSetting", REG_DWORD, &value, sizeof(value));
     
-    s &= ED("reg add \"HKLM\\SOFTWARE\\Khronos\\Vulkan\\ExplicitLayers\" /f");
+    DWORD value2 = 0;
+    s &= MY("HKCU\\Control Panel\\Desktop", 
+              "UserPreferencesMask", REG_BINARY, "\x90\x12\x01\x80", 4);
+    
+    DWORD value3 = 0;
+    s &= MY("HKCU\\Control Panel\\Desktop\\WindowMetrics", 
+              "MinAnimate", REG_SZ, "0", 2);
+    
+    DWORD value4 = 0;
+    s &= MY("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", 
+              "ListviewShadow", REG_DWORD, &value4, sizeof(value4));
+    
+    DWORD value5 = 0;
+    s &= MY("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", 
+              "TaskbarAnimations", REG_DWORD, &value5, sizeof(value5));
     
     return s;
 }
@@ -874,6 +897,113 @@ bool AK_AT(const json& params) {
     
     s &= ED("sc stop \"AMD Log Utility\"");
     s &= ED("sc config \"AMD Log Utility\" start= disabled");
+    
+    return s;
+}
+
+bool AK_SD(const json& params) {
+    DWORD value = 0;
+    bool s = MY("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Serialize", 
+              "StartupDelayInMSec", REG_DWORD, &value, sizeof(value));
+    return s;
+}
+
+bool AK_OP(const json& params) {
+    bool s = ED("powercfg -setacvalueindex scheme_current sub_processor PERFINCPOL 2");
+    s &= ED("powercfg -setacvalueindex scheme_current sub_processor PERFDECPOL 1");
+    s &= ED("powercfg -setacvalueindex scheme_current sub_processor PERFINCTHRESHOLD 10");
+    s &= ED("powercfg -setacvalueindex scheme_current sub_processor PERFDECTHRESHOLD 8");
+    
+    DWORD value = 100;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Control\\Power\\PowerSettings\\54533251-82be-4824-96c1-47b60b740d00\\be337238-0d82-4146-a960-4f3749d470c7", 
+              "ACSettingIndex", REG_DWORD, &value, sizeof(value));
+    
+    return s;
+}
+
+bool AK_DA(const json& params) {
+    DWORD value = 1;
+    bool s = MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", 
+              "NoAutoUpdate", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 0;
+    s &= MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", 
+              "AUOptions", REG_DWORD, &value2, sizeof(value2));
+    
+    DWORD value3 = 0;
+    s &= MY("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\DeliveryOptimization\\Config", 
+              "DODownloadMode", REG_DWORD, &value3, sizeof(value3));
+    
+    return s;
+}
+
+bool AK_OI(const json& params) {
+    bool s = ED("sc config WSearch start= disabled");
+    s &= ED("sc stop WSearch");
+    
+    DWORD value = 0;
+    s &= MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search", 
+              "AllowCortana", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 0;
+    s &= MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search", 
+              "AllowSearchToUseLocation", REG_DWORD, &value2, sizeof(value2));
+    
+    DWORD value3 = 0;
+    s &= MY("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\Windows Search", 
+              "DisableWebSearch", REG_DWORD, &value3, sizeof(value3));
+    
+    return s;
+}
+
+bool AK_DE(const json& params) {
+    DWORD value = 0;
+    bool s = MY("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Themes\\Personalize", 
+              "EnableTransparency", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 0;
+    s &= MY("HKCU\\Software\\Microsoft\\Windows\\DWM", 
+              "ColorPrevalence", REG_DWORD, &value2, sizeof(value2));
+    
+    DWORD value3 = 0;
+    s &= MY("HKCU\\Software\\Microsoft\\Windows\\DWM", 
+              "EnableAeroPeek", REG_DWORD, &value3, sizeof(value3));
+    
+    return s;
+}
+
+bool AK_VM(const json& params) {
+    bool s = ED("wmic computersystem set AutomaticManagedPagefile=False");
+    
+    DWORD initialSize = 8192;  // 8 GB initial size
+    DWORD maximumSize = 16384; // 16 GB maximum size
+    
+    std::string cmd = "wmic pagefileset where name=\"C:\\\\pagefile.sys\" set InitialSize=" + std::to_string(initialSize) + ",MaximumSize=" + std::to_string(maximumSize);
+    s &= ED(cmd);
+    
+    DWORD value = 3;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management", 
+              "LargeSystemCache", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 1;
+    s &= MY("HKLM\\SYSTEM\\CurrentControlSet\\Control\\Session Manager\\Memory Management", 
+              "IoPageLockLimit", REG_DWORD, &value2, sizeof(value2));
+    
+    return s;
+}
+
+bool AK_OC(const json& params) {
+    DWORD value = 1;
+    bool s = MY("HKCU\\Control Panel\\Accessibility\\Keyboard Response", 
+              "AutoRepeatDelay", REG_DWORD, &value, sizeof(value));
+    
+    DWORD value2 = 1;
+    s &= MY("HKCU\\Control Panel\\Accessibility\\Keyboard Response", 
+              "AutoRepeatRate", REG_DWORD, &value2, sizeof(value2));
+    
+    DWORD value3 = 0;
+    s &= MY("HKCU\\Control Panel\\Accessibility\\StickyKeys", 
+              "Flags", REG_DWORD, &value3, sizeof(value3));
     
     return s;
 } 

@@ -45,7 +45,34 @@ class PE(QScrollArea):
              "Disables Windows memory compression feature"),
             
             ("set_ram_usage_high", "Set RAM Usage High", 
-             "Configures Windows to prioritize performance over memory usage")
+             "Configures Windows to prioritize performance over memory usage"),
+             
+            ("disable_startup_delay", "Disable Startup Delay", 
+             "Removes the artificial delay during Windows startup"),
+             
+            ("optimize_processor_power", "Optimize Processor Power", 
+             "Configures CPU power settings for maximum performance"),
+             
+            ("optimize_visual_effects", "Optimize Visual Effects", 
+             "Disables unnecessary animations and visual effects"),
+             
+            ("disable_automatic_updates", "Disable Automatic Updates", 
+             "Prevents Windows from automatically downloading and installing updates"),
+             
+            ("optimize_disk_cleanup", "Optimize Disk Cleanup", 
+             "Configures automatic disk cleanup settings"),
+             
+            ("disable_windows_tips", "Disable Windows Tips", 
+             "Removes Windows suggestions and tips"),
+             
+            ("optimize_indexing", "Optimize Indexing Options", 
+             "Configures Windows Search indexing for better performance"),
+             
+            ("disable_transparency", "Disable Transparency Effects", 
+             "Turns off transparency in the UI for better performance"),
+             
+            ("optimize_virtual_memory", "Optimize Virtual Memory", 
+             "Configures pagefile for optimal performance")
         ]
         
         row = 0
