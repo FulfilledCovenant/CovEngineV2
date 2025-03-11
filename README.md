@@ -28,7 +28,7 @@ This project is divided into two main parts:
 
 ## Features
 
-![CovEngineV2 Screenshot](./image.png)
+![CovEngineV2 Screenshot](./latestv1.3.PNG)
 
 - System optimization tweaks for gaming
 - User-friendly interface
