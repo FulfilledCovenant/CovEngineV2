@@ -6,7 +6,7 @@ This document provides instructions on how to build CovEngineV2 into a standalon
 
 - Python 3.8 or higher
 - CMake 3.10 or higher (for building the backend)
-- Visual Studio 2019 or higher with C++ development tools
+- Visual Studio 2022 or higher with C++ development tools
 - PyInstaller (will be installed automatically if not present)
 - Windows operating system (the application is designed for Windows)
 
@@ -14,14 +14,26 @@ This document provides instructions on how to build CovEngineV2 into a standalon
 
 ### Building the Backend
 
-Before building the frontend, you need to build the backend:
+The backend can be built using either the provided batch script or manual commands.
+
+#### Using the Build Script (Recommended)
 
 1. Navigate to the `backend` directory
-2. Create a build directory: `mkdir build && cd build`
-3. Generate build files with CMake: `cmake ..`
+2. Run the `build_final.bat` script
+3. Wait for the build process to complete
+
+The backend executable will be created at `backend/out_build/bin/Release/CEV2.exe`.
+
+#### Manual Build
+
+If you prefer to build manually, follow these steps:
+
+1. Navigate to the `backend` directory
+2. Create a build directory: `mkdir out_build && cd out_build`
+3. Generate build files with CMake: `cmake -S .. -B . -G "Visual Studio 17 2022"`
 4. Build the project: `cmake --build . --config Release`
 
-The backend executable will be created at `backend/build/bin/Release/CEV2.exe`.
+Note: If you encounter "Error: could not load cache" issues, use the `-S` and `-B` flags as shown above to explicitly specify source and build directories.
 
 ### Building the Frontend
 
@@ -79,8 +91,9 @@ If you encounter any issues during the build process:
 
 1. Make sure you have the latest version of Python and CMake installed.
 2. Try running the build script with administrator privileges.
-3. Check that the backend executable (`CEV2.exe`) is present in the `backend/build/bin/Release` directory.
+3. Check that the backend executable (`CEV2.exe`) is present in the correct directory.
 4. If PyInstaller fails, try installing it manually with `pip install pyinstaller`.
+5. If CMake fails with "Error: could not load cache", try using the batch file or the manual build with explicit directory paths.
 
 If the application fails to run after building:
 

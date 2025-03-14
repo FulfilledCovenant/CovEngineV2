@@ -7,6 +7,7 @@ from frontend.ui.pe_de import DE
 from frontend.ui.pe_sm import SM
 from frontend.ui.pe_se import SE
 from frontend.ui.pe_ts import TS
+from frontend.ui.pe_ff import FF
 from frontend.ui.hr import HR
 from frontend.ui.pe_he import HE
 from frontend.ui.gl_st import GS, GW
@@ -145,6 +146,10 @@ class MW(QMainWindow):
         tweaks_btn.setObjectName("tweaks")
         tweaks_btn.setStyleSheet(button_style)
 
+        fflags_btn = QPushButton("FFlags")
+        fflags_btn.setObjectName("fflags")
+        fflags_btn.setStyleSheet(button_style)
+
         settings_btn = QPushButton("Settings")
         settings_btn.setObjectName("settings")
         settings_btn.setStyleSheet(button_style)
@@ -154,6 +159,7 @@ class MW(QMainWindow):
             "dashboard": dashboard_btn,
             "metrics": metrics_btn,
             "tweaks": tweaks_btn,
+            "fflags": fflags_btn,
             "settings": settings_btn
         }
 
@@ -161,6 +167,7 @@ class MW(QMainWindow):
         sidebar_layout.addWidget(dashboard_btn)
         sidebar_layout.addWidget(metrics_btn)
         sidebar_layout.addWidget(tweaks_btn)
+        sidebar_layout.addWidget(fflags_btn)
         sidebar_layout.addSpacing(20)
         sidebar_layout.addWidget(settings_btn)
 
@@ -206,6 +213,9 @@ class MW(QMainWindow):
 
         self.tweaks_page = TS(self)
         self.stacked_widget.addWidget(self.tweaks_page)
+        
+        self.fflags_page = FF()
+        self.stacked_widget.addWidget(self.fflags_page)
 
         self.settings_page = SE()
         self.stacked_widget.addWidget(self.settings_page)
@@ -216,11 +226,15 @@ class MW(QMainWindow):
         self.nav_buttons["dashboard"].clicked.connect(lambda: self.ce_pe("dashboard", 1))
         self.nav_buttons["metrics"].clicked.connect(lambda: self.ce_pe("metrics", 2))
         self.nav_buttons["tweaks"].clicked.connect(lambda: self.ce_pe("tweaks", 3))
-        self.nav_buttons["settings"].clicked.connect(lambda: self.ce_pe("settings", 4))
+        self.nav_buttons["fflags"].clicked.connect(lambda: self.ce_pe("fflags", 4))
+        self.nav_buttons["settings"].clicked.connect(lambda: self.ce_pe("settings", 5))
         
     def ce_pe(self, page_name, index):
 
-        self.page_title.setText(page_name.capitalize())
+        if page_name == "fflags":
+            self.page_title.setText("FFlags")
+        else:
+            self.page_title.setText(page_name.capitalize())
 
         for key, btn in self.nav_buttons.items():
             if key == page_name:

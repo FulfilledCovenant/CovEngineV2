@@ -6,7 +6,7 @@ a = Analysis(
     ['frontend/main.py'],
     pathex=[],
     binaries=[],
-    datas=[('backend/build/bin/Release/CEV2.exe', 'backend/build/Release'), ('create_restore_point.bat', '.')],
+    datas=[('backend/out_build/bin/Release/CEV2.exe', 'backend/bin/Release'), ('create_restore_point.bat', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},

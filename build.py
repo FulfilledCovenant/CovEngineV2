@@ -36,17 +36,33 @@ def main():
     
     if not args.onefile:
        
-        backend_exe = Path("backend/build/Release/CEV2.exe")
+        backend_exe = Path("backend/out_build/bin/Release/CEV2.exe")
         if not backend_exe.exists():
             print(f"Error: Backend executable not found at {backend_exe}")
-            return
+            print("Checking alternative backend locations...")
+            
+            alt_locations = [
+                Path("backend/build/bin/Release/CEV2.exe"),
+                Path("backend/build/Release/CEV2.exe"),
+                Path("backend/build_new/bin/Release/CEV2.exe"),
+                Path("backend/build_fix/bin/Release/CEV2.exe")
+            ]
+            
+            for alt_path in alt_locations:
+                if alt_path.exists():
+                    print(f"Found backend at alternate location: {alt_path}")
+                    backend_exe = alt_path
+                    break
+            else:
+                print("Error: Could not find backend executable in any known location.")
+                return
         
-      
-        print("Copying backend executable to dist folder...")
-        os.makedirs("dist/CovEngineV2/backend/build/Release", exist_ok=True)
-        shutil.copy2(backend_exe, "dist/CovEngineV2/backend/build/Release/")
+        target_dir = Path("dist/CovEngineV2/backend/bin/Release")
+        os.makedirs(target_dir, exist_ok=True)
         
-       
+        print(f"Copying backend executable from {backend_exe} to {target_dir}...")
+        shutil.copy2(backend_exe, target_dir)
+        
         batch_file = Path("create_restore_point.bat")
         if batch_file.exists():
             print("Copying restore point batch file...")
