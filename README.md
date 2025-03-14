@@ -11,20 +11,10 @@ This project is divided into two main parts:
 - **FE**: Frontend based on Python Qt
 - **BE**: Backend in C/C++
 
-## Latest Changes (v1.3)
+## Latest Changes (v1.4)
 
-**9** new system tweaks:
-
-- Disable Startup Delay
-- Optimize Processor Power
-- Optimize Visual Effects
-- Disable Automatic Updates
-- Optimize Disk Cleanup
-- Disable Windows Tips
-- Optimize Indexing Options
-- Disable Transparency Effects
-- Optimize Virtual Memory
-
+Roblox FFlags editor added.
+Client optimizations.
 
 ## Features
 
