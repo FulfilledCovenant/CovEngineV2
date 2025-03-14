@@ -11,24 +11,13 @@ This project is divided into two main parts:
 - **FE**: Frontend based on Python Qt
 - **BE**: Backend in C/C++
 
-## Latest Changes (v1.3)
+## Latest Changes (v1.5)
 
-**9** new system tweaks:
-
-- Disable Startup Delay
-- Optimize Processor Power
-- Optimize Visual Effects
-- Disable Automatic Updates
-- Optimize Disk Cleanup
-- Disable Windows Tips
-- Optimize Indexing Options
-- Disable Transparency Effects
-- Optimize Virtual Memory
-
+RCO
 
 ## Features
 
-![CovEngineV2 Screenshot](./image.png)
+![CovEngineV2 Screenshot](./latestv1.5.PNG)
 
 - System optimization tweaks for gaming
 - User-friendly interface
