@@ -24,6 +24,7 @@ RCO
 - Customizable optimization profiles
 - System restore point creation for safety
 - System metrics
+- Roblox tweaks
 
 ## Getting Started
 
