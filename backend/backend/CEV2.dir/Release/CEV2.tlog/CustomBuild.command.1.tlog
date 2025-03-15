@@ -1,0 +1,10 @@
+^C:\USERS\FILEFILZA\DESKTOP\PRIOJ\BACKEND\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/filefilza/Desktop/prioj -BC:/Users/filefilza/Desktop/prioj/backend --check-stamp-file C:/Users/filefilza/Desktop/prioj/backend/backend/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd

@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\filefilza\Desktop\prioj\backend\CMakeFiles\b8a6f84ea3bb480415a8d571a0308b8f\install_dependencies.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="C:\Users\filefilza\Desktop\prioj\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\filefilza\Desktop\prioj\backend\CMakeFiles\install_dependencies" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{0C89F919-0CF9-3F8B-BCF9-35285A50D46D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

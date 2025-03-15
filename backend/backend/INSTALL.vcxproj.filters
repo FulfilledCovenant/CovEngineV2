@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\filefilza\Desktop\prioj\backend\CMakeFiles\6352798114ef6840c5db090598a4f7f2\INSTALL_force.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{0C89F919-0CF9-3F8B-BCF9-35285A50D46D}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
