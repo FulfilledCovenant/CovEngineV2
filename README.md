@@ -11,20 +11,19 @@ This project is divided into two main parts:
 - **FE**: Frontend based on Python Qt
 - **BE**: Backend in C/C++
 
-## Latest Changes (v1.4)
+## Latest Changes (v1.5)
 
-RCO
+HWID Spoof (UD + Normal)
 
 ## Features
 
-![CovEngineV2 Screenshot](./latestv1.5.PNG)
+![CovEngineV2 Screenshot](./image.png)
 
 - System optimization tweaks for gaming
 - User-friendly interface
 - Customizable optimization profiles
 - System restore point creation for safety
 - System metrics
-- Roblox tweaks
 
 ## Getting Started
 
@@ -37,7 +36,3 @@ Or, download the latest release thats already built.
 Join our Discord server to get help, share feedback, and connect with other users:
 
 [Join the CovEngineV2 Discord](https://discord.gg/btHSfdSg)
-
-## Documentation
-
-Additional documentation and future tweaks can be found in the [docs](./docs) folder. 

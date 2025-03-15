@@ -45,7 +45,10 @@ def main():
                 Path("backend/build/bin/Release/CEV2.exe"),
                 Path("backend/build/Release/CEV2.exe"),
                 Path("backend/build_new/bin/Release/CEV2.exe"),
-                Path("backend/build_fix/bin/Release/CEV2.exe")
+                Path("backend/build_fix/bin/Release/CEV2.exe"),
+                Path("backend/bin/Release/CEV2.exe"),
+                Path("backend/Release/CEV2.exe"),
+                Path("dist/CovEngineV2/backend/bin/Release/CEV2.exe")
             ]
             
             for alt_path in alt_locations:
@@ -55,13 +58,44 @@ def main():
                     break
             else:
                 print("Error: Could not find backend executable in any known location.")
-                return
+                print("The application may still work with limited functionality.")
         
         target_dir = Path("dist/CovEngineV2/backend/bin/Release")
         os.makedirs(target_dir, exist_ok=True)
         
-        print(f"Copying backend executable from {backend_exe} to {target_dir}...")
-        shutil.copy2(backend_exe, target_dir)
+        if backend_exe.exists():
+            print(f"Copying backend executable from {backend_exe} to {target_dir}...")
+            shutil.copy2(backend_exe, target_dir)
+        else:
+            print("Warning: Main backend CEV2.exe not found. Some features may not work.")
+        
+        spoofer_exe = Path("frontend/bin/SPF.exe")
+        if not spoofer_exe.exists():
+            print(f"Warning: Spoofer executable not found at {spoofer_exe}")
+            print("Checking alternative spoofer locations...")
+            
+            alt_spoofer_locations = [
+                Path("dist/CovEngineV2/frontend/bin/SPF.exe"),
+                Path("frontend/build/bin/Release/SPF.exe"),
+                Path("frontend/build/Release/SPF.exe"),
+                Path("frontend/build/bin/SPF.exe")
+            ]
+            
+            for alt_path in alt_spoofer_locations:
+                if alt_path.exists():
+                    print(f"Found spoofer at alternate location: {alt_path}")
+                    spoofer_exe = alt_path
+                    break
+            else:
+                print("Warning: Could not find spoofer executable in any known location.")
+                print("The spoofer feature may not work correctly.")
+        
+        if spoofer_exe.exists():
+            spoofer_target_dir = Path("dist/CovEngineV2/frontend/bin")
+            os.makedirs(spoofer_target_dir, exist_ok=True)
+            
+            print(f"Copying spoofer executable from {spoofer_exe} to {spoofer_target_dir}...")
+            shutil.copy2(spoofer_exe, spoofer_target_dir)
         
         batch_file = Path("create_restore_point.bat")
         if batch_file.exists():

@@ -1,6 +1,6 @@
 # CovEngineV2 Build Instructions
 
-This document provides instructions on how to build CovEngineV2 into a standalone executable.
+This document provides instructions on how to build CovEngineV2 into a executable.
 
 ## Prerequisites
 
