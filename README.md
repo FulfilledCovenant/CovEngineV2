@@ -17,7 +17,7 @@ HWID Spoof (UD + Normal)
 
 ## Features
 
-![CovEngineV2 Screenshot](./latestv1.5.png)
+![CovEngineV2 Screenshot](./latestv1.5.PNG)
 
 - System optimization tweaks for gaming
 - User-friendly interface
