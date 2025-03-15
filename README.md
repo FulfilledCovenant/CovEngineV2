@@ -35,4 +35,4 @@ Or, download the latest release thats already built.
 
 Join our Discord server to get help, share feedback, and connect with other users:
 
-[Join the CovEngineV2 Discord](https://discord.gg/btHSfdSg)
+[Join the CovEngineV2 Discord](https://discord.gg/hgDCbT7G)
