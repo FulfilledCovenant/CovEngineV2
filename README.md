@@ -1,3 +1,5 @@
+> [!IMPORTANT]  
+> All builds are tested on windows 10, all tweaks should work for 11. Do NOT use the spoofing feature on windows 11.
 # CovEngineV2
 
 CovEngineV2 is an open source project that aims to optimize your PC for gaming performance.
@@ -26,6 +28,8 @@ HWID Spoof (UD + Normal)
 - System metrics
 
 ## Getting Started
+> [!TIP]
+> See [FAQ.md](./FAQ.md) for frequently asked questions.
 
 See [BUILD_INSTRUCTIONS.md](./BUILD_INSTRUCTIONS.md) for details on how to build and run the application.
 
