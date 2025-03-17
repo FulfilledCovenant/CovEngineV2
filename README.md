@@ -1,5 +1,5 @@
 > [!IMPORTANT]  
-> All builds are tested on windows 10, all tweaks should work for 11. Do NOT use the spoofing feature on windows 11, and if you use a controller I would NOT use this optimizer.
+> All builds are tested on windows 10, all tweaks should work for 11. Do NOT use the spoofing feature on windows 11, and if you use a controller I would NOT use the fastflags.
 # CovEngineV2
 
 CovEngineV2 is an open source project that aims to optimize your PC for gaming performance.
